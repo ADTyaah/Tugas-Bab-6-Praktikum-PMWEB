@@ -1,0 +1,30 @@
+CREATE TABLE tb_user (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    email VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+ 
+CREATE TABLE tb_barang (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nama VARCHAR(50) NOT NULL,
+    kategori VARCHAR(50) NOT NULL,
+    harga INT(11) NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'Tersedia',
+    PRIMARY KEY (id)
+) ENGINE=InnoDB;
+ 
+CREATE TABLE tb_pesanan (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    pelanggan VARCHAR(50) NOT NULL,
+    barang_id INT(11) NOT NULL,
+    tanggal DATE NOT NULL,
+    durasi INT(11) NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'Menunggu',
+    PRIMARY KEY (id),
+    KEY idx_barang_id (barang_id),
+    CONSTRAINT fk_pesanan_barang
+        FOREIGN KEY (barang_id) REFERENCES tb_barang(id)
+        ON UPDATE RESTRICT ON DELETE RESTRICT
+) ENGINE=InnoDB;
